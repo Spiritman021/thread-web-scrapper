@@ -1,5 +1,7 @@
 fastapi
-uvicorn[standard]
+uvicorn
 selenium
 python-dotenv
 slowapi
+chromedriver-autoinstaller
+undetected-chromedriver
