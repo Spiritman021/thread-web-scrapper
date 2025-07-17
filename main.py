@@ -14,6 +14,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from dotenv import load_dotenv
 import os
+import uuid
 
 load_dotenv()
 
@@ -57,7 +58,14 @@ def scrape_media(url: str) -> dict:
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--disable-web-security")
+    chrome_options.add_argument("--allow-running-insecure-content")
+    chrome_options.add_argument("--disable-extensions")
+    chrome_options.add_argument("--disable-features=VizDisplayCompositor")
     chrome_options.add_argument("--window-size=1920,1080")
+    chrome_options.add_argument("--remote-debugging-port=9222")
+    chrome_options.add_argument(f"--user-data-dir=/tmp/chrome-{uuid.uuid4()}")
 
     driver = webdriver.Chrome(options=chrome_options)
     driver.set_page_load_timeout(20)
