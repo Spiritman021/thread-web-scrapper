@@ -107,7 +107,7 @@ def scrape_media(url: str) -> dict:
 # ----------- API Endpoint -----------
 @app.post("/scrape", response_model=ScrapeResult)
 @limiter.limit("5/minute")  # Limit requests per IP
-async def scrape(request: Request, body: ScrapeRequest, _: str = Depends(verify_api_key)):
+async def scrape(request: Request, body: ScrapeRequest, api_key: str = Depends(verify_api_key)):
     logger.info(f"Received request to scrape: {body.url}")
     result = await run_in_threadpool(scrape_media, body.url)
     return JSONResponse(content=result)
