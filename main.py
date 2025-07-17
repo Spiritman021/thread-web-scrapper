@@ -45,8 +45,8 @@ API_KEY = os.getenv("API_KEY")
 
 def verify_api_key(x_api_key: str = Header(...)):
     
-    logger.info(f"Received API Key: {x_api_key}")
-    logger.info(f"System api key: {API_KEY}")
+    # logger.info(f"Received API Key: {x_api_key}")
+    # logger.info(f"System api key: {API_KEY}")
     if x_api_key != API_KEY:
         logger.warning("Unauthorized access attempt with key: %s", x_api_key)
         raise HTTPException(status_code=401, detail="Invalid or missing API Key")
@@ -65,7 +65,6 @@ def scrape_media(url: str) -> dict:
     chrome_options.add_argument("--disable-features=VizDisplayCompositor")
     chrome_options.add_argument("--window-size=1920,1080")
     chrome_options.add_argument("--remote-debugging-port=9222")
-    chrome_options.add_argument(f"--user-data-dir=/tmp/chrome-{uuid.uuid4()}")
 
     driver = webdriver.Chrome(options=chrome_options)
     driver.set_page_load_timeout(20)
